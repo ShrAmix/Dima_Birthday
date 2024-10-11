@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поздравление для Хлебушка</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        .message {
+            display: none;
+        }
+        .active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #startSection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #startSection button {
+            margin-top: 50px;
+            font-size: 18px;
+            padding: 15px 30px;
+        }
+        #cardSection {
+            display: none;
+        }
+        .card-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Аудио файл -->
+<audio id="backgroundMusic" loop>
+    <source src="musik.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
+</audio>
+
+<div class="container" id="startSection">
+    <h1>Привет, Хлебушек!</h1>
+    <p>Нажми на кнопку ниже, чтобы начать своё поздравление 🎉</p>
+    <button id="startButton">Начать</button>
+</div>
+
+<div class="container" id="mainSection" style="display:none;">
+    <h1>Поздравление для Хлебушка</h1>
+    <div class="message active" id="message1">
+        <p>С днём рождения, любимый! Сегодня твой день, и я хочу начать с самого важного — сказать огромное спасибо твоей маме за то, что в этом мире есть такой замечательный человек, как ты.</p>
+    </div>
+    <div class="message" id="message2">
+        <p>Я люблю тебя безмерно. Ты умеешь превратить даже самые обычные моменты в что-то особенное. С тобой невозможно скучать — ты всегда знаешь, как меня развеселить, поддержать или просто быть рядом.</p>
+    </div>
+    <div class="message" id="message3">
+        <p>Даже молчание с тобой приносит радость... Ведь когда с кем-то комфортно просто молчать, ты понимаешь, что это — твой человек.</p>
+    </div>
+    <div class="message" id="message4">
+        <p>В этот особенный день я хочу пожелать тебе, чтобы в твоём коде не было ни одной ошибки, а каждый новый проект приносил радость и вдохновение.</p>
+    </div>
+    <div class="message" id="message5">
+        <p>Помни: я всегда рядом, чтобы поддержать тебя, смеяться вместе и разделять каждый момент.</p>
+    </div>
+    <div class="message" id="message6">
+        <p>Желаю, чтобы в твоей жизни было меньше багов, чем в моих попытках объяснить, что я от тебя хочу!</p>
+    </div>
+    <div class="message" id="message7">
+        <p>Ты, как хороший код — каждый раз, когда думаешь, что лучше уже не станет, ты снова удивляешь.</p>
+    </div>
+    <div class="message" id="message8">
+        <p>Пусть у тебя всегда хватает памяти, как у твоего компьютера, и чтобы 'системный сбой' обходил тебя стороной!</p>
+    </div>
+    <div class="message" id="message9">
+        <p>Желаю, чтобы каждый твой день был как хорошая программа — без ошибок и с отличным результатом.</p>
+    </div>
+    <div class="message" id="message10">
+        <p>Пусть твои дни будут такими же яркими, как твои шутки про Гитлера! Желаю, чтобы в твоей жизни было меньше заблудившихся моментов и больше точных направлений!</p>
+    </div>
+
+    <button id="nextButton">Далее</button>
+</div>
+
+<div class="container" id="cardSection">
+    <h1>Сюрприз 🎁</h1>
+    <p>И вот твоя персональная открытка! Спасибо, что ты есть ❤️</p>
+    <img src="birthday_card2.png" alt="Открытка" class="card-image">
+</div>
+
+<script>
+    let currentMessageIndex = 0;
+    const messages = document.querySelectorAll('.message');
+    const nextButton = document.getElementById('nextButton');
+    const startSection = document.getElementById('startSection');
+    const mainSection = document.getElementById('mainSection');
+    const cardSection = document.getElementById('cardSection');
+    const startButton = document.getElementById('startButton');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    // Показать первый элемент
+    messages[currentMessageIndex].classList.add('active');
+
+    // Обработчик кнопки "Начать"
+    startButton.addEventListener('click', () => {
+        backgroundMusic.play().catch(function(e) {
+            console.log('Автозапуск заблокирован, пользователь должен взаимодействовать с элементом для воспроизведения');
+        });
+        startSection.style.display = 'none';
+        mainSection.style.display = 'block';
+    });
+
+    // Обработчик кнопки "Далее"
+    nextButton.addEventListener('click', () => {
+        // Скрыть текущее сообщение
+        messages[currentMessageIndex].classList.remove('active');
+        currentMessageIndex++;
+
+        // Если дошли до конца сообщений
+        if (currentMessageIndex >= messages.length) {
+            mainSection.style.display = 'none';
+            cardSection.style.display = 'block';
+        } else {
+            // Показать следующее сообщение
+            messages[currentMessageIndex].classList.add('active');
+        }
+    });
+</script>
+
+</body>
+</html>
